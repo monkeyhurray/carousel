@@ -1,0 +1,45 @@
+@import '@/styles/common/variables';
+
+.carousel-box {
+  width: 100%;
+  padding: 1rem 2rem;
+  border: 1.5px solid black;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: map-get($map: $colors, $key: background-color);
+  gap: 0.2rem;
+
+  &__cards {
+    overflow: hidden;
+    &__card {
+      display: inline-block;
+      margin: auto;
+      width: 6rem;
+      height: 12rem;
+      // transform: translateX(6rem);
+      column-gap: 0.8rem;
+
+      &__img {
+        width: 100%;
+        height: 70%;
+        border-radius: 8px;
+      }
+
+      &__contents {
+        width: 100%;
+        height: 30%;
+        display: block;
+
+        &__title {
+          display: block;
+        }
+
+        &__author {
+          display: block;
+        }
+      }
+    }
+  }
+}
