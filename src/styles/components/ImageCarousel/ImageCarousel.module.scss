@@ -9,18 +9,19 @@
 
   &-carousel {
     margin: auto;
-    width: 9rem;
-    height: 12.5rem;
+    width: map-get($map: $carousel, $key: width);
+    height: map-get($map: $carousel, $key: height);
     overflow: hidden;
 
     &__cells {
-      width: 27rem;
-      height: 12.5rem;
+      width: calc(map-get($map: $carousel, $key: width) * 3);
+      height: map-get($map: $carousel, $key: height);
       display: flex;
       transition: ease-in-out 0.3s;
+
       &__cell {
-        width: 9rem;
-        height: 12.5rem;
+        width: map-get($map: $carousel, $key: width);
+        height: map-get($map: $carousel, $key: height);
         border-radius: 8px;
       }
     }

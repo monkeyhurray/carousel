@@ -4,101 +4,94 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import styles from '@/styles/components/Carousel/CardBox.module.scss';
 import { CARDS } from '@/constants/card';
-
+import { deepCopyArr } from '@/lib/deepCopyArr';
+import left from '@/../../public/assets/carousel/leftArrow.svg';
+import right from '@/../../public/assets/carousel/rightArrow.svg';
 const Carousel = () => {
-  const prevRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const cards = CARDS;
+  const btnPrevRef = useRef<HTMLImageElement>(null);
+  const btnNextRef = useRef<HTMLImageElement>(null);
+  const cardRef = useRef<HTMLImageElement>(null);
+  const contentRef = useRef<HTMLImageElement>(null);
+
   const [translateValue, setTranslateValue] = useState(0);
 
   useEffect(() => {
-    if (translateValue === 0 && prevRef.current) {
-      prevRef.current.style.pointerEvents = 'none';
+    if (btnPrevRef.current && btnNextRef.current) {
+      // prev 버튼 처리
+      btnPrevRef.current.style.pointerEvents =
+        translateValue === 0 ? 'none' : 'auto';
+      // next 버튼 처리
+      btnNextRef.current.style.pointerEvents =
+        translateValue === -8.6 * 2 ? 'none' : 'auto';
     }
   }, [translateValue]);
 
-  const onClickProh = () => {
+  const prevFunc = () => {
     setTranslateValue((prev) => {
-      const newValue = prev - 6;
-      if (cardRef.current) {
-        cardRef.current.style.transform = `translateX(${newValue}rem)`;
-      }
-      return newValue;
-    });
-  };
-  if (cardRef.current) {
-    console.log(cardRef.current.style.width);
-  }
-  const onClickPrev = () => {
-    setTranslateValue((prev) => {
-      const newValue = prev + 6;
-      if (cardRef.current) {
-        cardRef.current.style.transform = `translateX(${newValue}rem)`;
+      const newValue = prev + 8.6;
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translateX(${newValue}rem)`;
       }
       return newValue;
     });
   };
 
+  const nextFunc = () => {
+    setTranslateValue((prev) => {
+      const newValue = prev - 8.6;
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translateX(${newValue}rem)`;
+      }
+      return newValue;
+    });
+  };
+
+  const cards = deepCopyArr(CARDS);
+
   return (
     <>
-      <div className={styles['carousel-box']}>
-        <h1
-          className={styles['carousel-box__click']}
-          ref={prevRef}
-          onClick={onClickPrev}
-        >
-          이전
-        </h1>
-        <div className={styles['carousel-box__contents']}>
-          <div
-            ref={cardRef}
-            className={styles['carousel-box__contents__cards']}
-          >
+      <div className={styles['container']}>
+        <Image
+          ref={btnPrevRef}
+          className={styles['container-arrow']}
+          onClick={prevFunc}
+          src={left}
+          alt="이전"
+        />
+        <div className={styles['container-carousel']}>
+          <div ref={contentRef} className={styles['container-carousel__cells']}>
             {cards.map((book) => {
               return (
                 <div
-                  className={styles['carousel-box__contents__cards__card']}
-                  key={book?.id}
+                  key={book.id}
+                  className={styles['container-carousel__cells__cell']}
                 >
                   <Image
-                    className={
-                      styles['carousel-box__contents__cards__card__img']
-                    }
-                    src={book?.image}
+                    ref={cardRef}
+                    className={styles['container-carousel__cells__cell__img']}
+                    src={book.image}
                     alt="책"
                   />
                   <p
                     className={
-                      styles['carousel-box__contents__cards__card__contents']
+                      styles['container-carousel__cells__cell__content']
                     }
                   >
-                    <span
-                      className={
-                        styles[
-                          'carousel-box__contents__cards__card__contents__title'
-                        ]
-                      }
-                    >
-                      {book?.title}
-                    </span>
-                    <span
-                      className={
-                        styles[
-                          'carousel-box__contents__cards__card__contents__author'
-                        ]
-                      }
-                    >
-                      {book?.author}
-                    </span>
+                    <span>{book.title}</span>
+                    <span>{book.author}</span>
                   </p>
                 </div>
               );
             })}
           </div>
-          <h1 className={styles['carousel-box__click']} onClick={onClickProh}>
-            다음
-          </h1>
         </div>
+        <Image
+          ref={btnNextRef}
+          className={styles['container-arrow']}
+          onClick={nextFunc}
+          src={right}
+          alt="다음"
+        />
       </div>
     </>
   );
