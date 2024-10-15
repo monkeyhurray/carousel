@@ -1,0 +1,48 @@
+@import '@/styles/common/variables';
+
+.container {
+  width: 30%;
+  margin: auto;
+  border-radius: 8px;
+  border: 1px solid map-get($map: $colors, $key: main-color);
+  padding: 3rem;
+
+  &-carousel {
+    margin: auto;
+    width: 9rem;
+    height: 12.5rem;
+    overflow: hidden;
+
+    &__cells {
+      width: 27rem;
+      height: 12.5rem;
+      display: flex;
+      transition: ease-in-out 0.3s;
+      &__cell {
+        width: 9rem;
+        height: 12.5rem;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+.btn {
+  width: 60%;
+  margin: 2rem auto;
+  gap: 1rem;
+  display: flex;
+  justify-content: center;
+
+  &-prev,
+  &-next {
+    width: 5rem;
+    height: 2.2rem;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid map-get($map: $colors, $key: main-color);
+    cursor: pointer;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+  }
+}

@@ -4,9 +4,9 @@ import devil from '@/../../public/assets/devil.jpeg';
 import vegiterian from '@/../../public/assets/vegiterian.jpeg';
 import docker from '@/../../public/assets/docker.jpeg';
 import fox from '@/../../public/assets/fox.jpg';
+import { ItemType } from '@/types/cardType';
 
-console.log(camilo);
-export const CARDS = [
+export const CARDS: ItemType[] = [
   { id: 1, image: camilo, title: '돈까밀로', author: '조바니노' },
   { id: 2, image: pappone, title: '패포네', author: '과레스키' },
   { id: 3, image: devil, title: '악마', author: '조반니노' },

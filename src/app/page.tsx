@@ -1,9 +1,11 @@
-import Carousel from '@/components/Carousel';
+import ImageCarousel from '@/components/ImageCarousel';
 
 const Home = () => {
   return (
     <div className="carousel-main">
-      <Carousel />
+      <ImageCarousel />
+      {/* <Carousel />
+      <InfinityCarousel /> */}
     </div>
   );
 };
